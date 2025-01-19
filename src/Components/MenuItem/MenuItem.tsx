@@ -9,7 +9,7 @@ interface MenuItemProps {
 
 const MenuItem: React.FC<MenuItemProps> = ({ linkurl, linktext }) => {
   return (
-    <Link to={linkurl}>{linktext}</Link>
+    <Link to={linkurl}>{linktext}</Link>//new 
   );
 };
 
