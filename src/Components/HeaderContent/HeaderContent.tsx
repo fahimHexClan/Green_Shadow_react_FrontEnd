@@ -1,9 +1,12 @@
-import React from 'react'
+import React from 'react';
+import Links from '../Links/Links';
 
 function HeaderContent() {
   return (
-    <div>HeaderContent</div>
-  )
+    <>
+      <Links />
+    </>
+  );
 }
 
-export default HeaderContent
+export default HeaderContent;

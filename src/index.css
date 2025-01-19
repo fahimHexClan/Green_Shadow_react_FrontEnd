@@ -1,0 +1,25 @@
+
+:root {
+    --header-height: 3rem;
+    --nav-width: 68px;
+    --nav-width-expanded: 250px;
+    --first-color: rgba(0, 224, 255, 0.79);
+    --first-color-light: #AFA5D9;
+    --white-color: rgb(255, 255, 255);
+    --body-font: 'Nunito', sans-serif;
+    --glass-background: black;
+    --z-fixed: 100;
+  }
+  
+  * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+  body {
+    font-family: var(--body-font);
+    background: lightblue;
+    color: var(--white-color);
+    min-height: 100vh;
+   
+  }

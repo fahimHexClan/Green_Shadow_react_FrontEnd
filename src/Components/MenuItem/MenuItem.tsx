@@ -2,15 +2,20 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 
 // Define the props interface
-interface MenuItemProps {
-  linkurl: string;
+type Props = {
   linktext: string;
-}
-
-const MenuItem: React.FC<MenuItemProps> = ({ linkurl, linktext }) => {
-  return (
-    <Link to={linkurl}>{linktext}</Link>//new 
-  );
+  url: string;
+  className: string;
+  children?: React.ReactNode; 
 };
+
+function MenuItem(props: Props) {
+  return (
+    <Link to={props.url} className={props.className}>
+      {props.children} 
+      {props.linktext} 
+    </Link>
+  );
+}
 
 export default MenuItem;

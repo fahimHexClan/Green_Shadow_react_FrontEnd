@@ -1,8 +1,11 @@
+import React from 'react';
 
-function BodyContent() {
+function BodyContainer(props: any) {
   return (
-    <div>BodyContent</div>
-  )
+    <div className="main-content">
+      <h1>{props.children}</h1>
+    </div>
+  );
 }
 
-export default BodyContent
+export default BodyContainer;
