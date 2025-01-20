@@ -2,15 +2,15 @@ import React from "react";
 import BodyContent from "../BodyContent/BodyContent";
 import HeaderContent from "../HeaderContent/HeaderContent";
 
-const Contactus: React.FC = () => {
+const Field: React.FC = () => {
   return (
     <div>
       <HeaderContent />
       <BodyContent>
-        <h3>Contact Us</h3>
+        <h3>Field</h3>
       </BodyContent>
     </div>
   );
 };
 
-export default Contactus;
+export default Field;

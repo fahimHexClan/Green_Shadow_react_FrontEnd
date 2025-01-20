@@ -2,15 +2,15 @@ import React from "react";
 import BodyContent from "../BodyContent/BodyContent";
 import HeaderContent from "../HeaderContent/HeaderContent";
 
-const AboutUs: React.FC = () => {
+const Vehicle: React.FC = () => {
   return (
     <div>
       <HeaderContent />
       <BodyContent>
-        <h3>About Us</h3>
+        <h3>Vehicle</h3>
       </BodyContent>
     </div>
   );
 };
 
-export default AboutUs;
+export default Vehicle;

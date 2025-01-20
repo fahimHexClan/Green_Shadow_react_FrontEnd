@@ -20,17 +20,24 @@ body {
   align-items: center;
   padding: 16px 24px;
   background-color: #2c3e50;
-  color: white;
+  color: rgb(91, 188, 125);
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
   z-index: 1000;
-  transition: background-color 0.3s ease;
+  position: sticky; /* Keeps the header fixed at the top */
+  top: 0;
+  transition: background-color 0.3s ease, padding 0.3s ease;
 }
 
 .toggle-btn {
-  font-size: 36px;
+  font-size: 32px;
   cursor: pointer;
   transition: transform 0.3s ease, color 0.3s ease;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100%; /* Ensures it takes up the full height of the container */
 }
+
 
 .toggle-btn:hover {
   transform: rotate(180deg);
@@ -49,20 +56,11 @@ body {
 }
 
 .links-container.collapsed {
-  width: 60px;
+  width: 70px;
 }
 
 .links-container.expanded {
   width: 250px;
-  background-color: #34495e;
-}
-
-.links-container.collapsed .nav_icon {
-  font-size: 24px !important;
-}
-
-.links-container.expanded .nav_icon {
-  font-size: 24px !important;
 }
 
 .navigation {
@@ -80,16 +78,13 @@ body {
 
 .nav-title {
   font-size: 18px;
-  color: white;
-  transition: opacity 0.3s ease-in-out, visibility 0.3s ease-in-out;
-}
-
-.nav-title.hide {
+  color: rgb(89, 201, 145);
   opacity: 0;
   visibility: hidden;
+  transition: opacity 0.3s ease, visibility 0.3s ease;
 }
 
-.nav-title.show {
+.links-container.expanded .nav-title {
   opacity: 1;
   visibility: visible;
 }
@@ -101,6 +96,7 @@ body {
   margin: 10px 0;
   padding: 10px;
   border-radius: 4px;
+  color: #ffffff;
   cursor: pointer;
   transition: background-color 0.3s ease, padding-left 0.3s ease, transform 0.3s ease;
 }
@@ -108,23 +104,41 @@ body {
 .menu-item:hover {
   background-color: #1abc9c;
   padding-left: 30px;
-  color: white;
   transform: scale(1.05);
 }
 
 .menu-item:focus,
 .menu-item:active {
   background-color: #16a085;
-  padding-left: 30px;
-  color: white;
   outline: none;
 }
 
+/* Nav Icon */
 .nav_icon {
-  font-size: 24px !important;
+  font-size: 24px;
   color: white;
   margin-right: 10px;
   transition: font-size 0.3s ease, color 0.3s ease;
+}
+
+/* Handle Collapsed State */
+.links-container.collapsed .nav_icon {
+  font-size: 20px; /* Smaller icon size for collapsed state */
+  margin-right: 0; /* Adjust margin if needed */
+}
+
+.links-container.expanded .nav_icon {
+  font-size: 24px; /* Normal icon size for expanded state */
+}
+
+.links-container.collapsed .menu-text {
+  opacity: 0;
+  visibility: hidden;
+}
+
+.links-container.expanded .menu-text {
+  opacity: 1;
+  visibility: visible;
 }
 
 .menu-text {
@@ -132,16 +146,6 @@ body {
   color: white;
   white-space: nowrap;
   transition: opacity 0.3s ease, visibility 0.3s ease;
-}
-
-.menu-text.hide {
-  opacity: 0;
-  visibility: hidden;
-}
-
-.menu-text.show {
-  opacity: 1;
-  visibility: visible;
 }
 
 /* Mobile Responsiveness */
@@ -167,15 +171,6 @@ body {
   }
 
   .nav_icon {
-    font-size: 22px;
+    font-size: 20px;
   }
-}
-
-/* Focus and Active State */
-.menu-item:focus,
-.menu-item:active {
-  background-color: #16a085;
-  padding-left: 30px;
-  color: white;
-  outline: none;
 }

@@ -7,9 +7,9 @@ import {
 
 import "./index.css";
 import App from "./App.tsx";
-import BogPage from "./Components/Pagess/BogPage.tsx";
-import AboutUs from "./Components/Pagess/AboutUs.tsx";
-import ContactUs from "./Components/Pagess/ContactUs.tsx";
+import BogPage from "./Components/Pagess/Equipment.tsx";
+import AboutUs from "./Components/Pagess/MonitoringLog.tsx";
+import ContactUs from "./Components/Pagess/Crop.tsx";
 
 
 const router = createBrowserRouter([
