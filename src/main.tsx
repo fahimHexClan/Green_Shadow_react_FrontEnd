@@ -7,9 +7,9 @@ import {
 
 import "./index.css";
 import App from "./App.tsx";
-import BogPage from "./Components/Pagess/Equipment.tsx";
 import AboutUs from "./Components/Pagess/MonitoringLog.tsx";
 import ContactUs from "./Components/Pagess/Crop.tsx";
+import Crop from "./Components/Pagess/Crop.tsx";
 
 
 const router = createBrowserRouter([
@@ -18,8 +18,8 @@ const router = createBrowserRouter([
     element: <App />,
   },
   {
-    path: "/blog",
-    element: <BogPage />,
+    path: "/Crop",
+    element: <Crop />,
   },
   {
     path: "/about",

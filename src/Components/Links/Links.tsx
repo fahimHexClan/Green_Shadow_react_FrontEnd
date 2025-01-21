@@ -4,6 +4,7 @@ import 'bootstrap-icons/font/bootstrap-icons.css';
 import './Links.css';
 import { FaBars, FaTimes, FaHome, FaInfoCircle, FaPhone, FaBlog } from 'react-icons/fa';
 
+
 const Links: React.FC = () => {
   const [isSidebarVisible, setSidebarVisible] = useState<boolean>(false);
 
@@ -52,8 +53,8 @@ const Links: React.FC = () => {
         </MenuItem>
 
         <MenuItem
-          linktext={isSidebarVisible ? 'Blog' : ''}
-          url="/blog"
+          linktext={isSidebarVisible ? 'Crop' : ''}
+          url="/Crop"
           className="menu-item"
         >
           <FaBlog className="nav_icon" />

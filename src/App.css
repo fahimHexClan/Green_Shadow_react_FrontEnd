@@ -7,7 +7,7 @@
     --white-color: rgb(255, 255, 255);
     --body-font: 'Nunito', sans-serif;
     --glass-background:black;
-    --z-fixed: 100;
+
   }
   
   * {
@@ -19,6 +19,25 @@
     font-family: var(--body-font);
     background: lightblue;
     color: var(--white-color);
-    min-height: 100vh;
+
    
   }
+  /* Main container for layout */
+.app-container {
+  display: flex;
+  height: 100vh; /* Full screen height */
+  background: var(--glass-background);
+}
+
+.links-container {
+  height: 100vh; /* Full sidebar height */
+  flex-shrink: 0;
+}
+
+.main-content {
+  flex-grow: 1; /* Take remaining space */
+  padding: 20px;
+  overflow-y: auto;
+  background-color: #121212;
+  color: var(--white-color);
+}

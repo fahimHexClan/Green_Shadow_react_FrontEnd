@@ -4,7 +4,7 @@ import HeaderContent from "../HeaderContent/HeaderContent";
 
 const Field: React.FC = () => {
   return (
-    <div>
+    <div className="app-container">
       <HeaderContent />
       <BodyContent>
         <h3>Field</h3>
