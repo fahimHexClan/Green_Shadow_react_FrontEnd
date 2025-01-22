@@ -2,11 +2,11 @@
     --header-height: 3rem;
     --nav-width: 68px;
     --nav-width-expanded: 250px;
-    --first-color: rgba(0, 224, 255, 0.79);
-    --first-color-light: #AFA5D9;
-    --white-color: rgb(255, 255, 255);
+    --first-color: rgba(238, 241, 241, 0.79);
+    --first-color-light: #461ee4;
+    --white-color: rgb(0, 0, 0);
     --body-font: 'Nunito', sans-serif;
-    --glass-background:black;
+    --glass-background:#e1e0db;
 
   }
   
@@ -17,7 +17,7 @@
   }
   body {
     font-family: var(--body-font);
-    background: lightblue;
+    background: f3fbfb;
     color: var(--white-color);
 
    
@@ -38,6 +38,6 @@
   flex-grow: 1; /* Take remaining space */
   padding: 20px;
   overflow-y: auto;
-  background-color: #121212;
+  background-color: #f3fbfb;
   color: var(--white-color);
 }

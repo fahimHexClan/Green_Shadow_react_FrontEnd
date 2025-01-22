@@ -2,8 +2,7 @@ import React, { useState } from 'react';
 import MenuItem from '../MenuItem/MenuItem';
 import 'bootstrap-icons/font/bootstrap-icons.css';
 import './Links.css';
-import { FaBars, FaTimes, FaHome, FaInfoCircle, FaPhone, FaBlog } from 'react-icons/fa';
-
+import { FaBars, FaHome, FaInfoCircle, FaPhone, FaBlog } from 'react-icons/fa';
 
 const Links: React.FC = () => {
   const [isSidebarVisible, setSidebarVisible] = useState<boolean>(false);
@@ -17,16 +16,13 @@ const Links: React.FC = () => {
       {/* Header with the Toggle Button */}
       <header className="header">
         <div className="toggle-btn" onClick={toggleSidebar} aria-label="Toggle sidebar">
-          {isSidebarVisible ? <FaTimes /> : <FaBars />}
+          <FaBars />
         </div>
+        <h2 className="nav-title">DASHBOARD</h2>
       </header>
 
       {/* Sidebar Navigation */}
       <nav className={`navigation ${isSidebarVisible ? 'visible' : ''}`}>
-        <div className="nav-header">
-          <h2 className={`nav-title ${isSidebarVisible ? 'show' : 'hide'}`}>Green Shadow</h2>
-        </div>
-
         {/* Menu Items */}
         <MenuItem
           linktext={isSidebarVisible ? 'Home' : ''}
