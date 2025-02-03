@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import MenuItem from '../MenuItem/MenuItem';
 import 'bootstrap-icons/font/bootstrap-icons.css';
 import './Links.css';
-import { FaBars, FaHome, FaInfoCircle, FaPhone, FaBlog } from 'react-icons/fa';
+import { FaBars, FaHome,FaSeedling ,FaMap , FaListAlt ,FaCar , FaUserFriends , FaBlog } from 'react-icons/fa';
 
 const Links: React.FC = () => {
   const [isSidebarVisible, setSidebarVisible] = useState<boolean>(false);
@@ -38,7 +38,7 @@ const Links: React.FC = () => {
           url="/monitorLog"
           className="menu-item"
         >
-          <FaInfoCircle className="nav_icon" />
+          <FaListAlt  className="nav_icon" />
         </MenuItem>
 
         <MenuItem
@@ -46,7 +46,7 @@ const Links: React.FC = () => {
           url="/field"
           className="menu-item"
         >
-          <FaPhone className="nav_icon" />
+          <FaMap  className="nav_icon" />
         </MenuItem>
 
         <MenuItem
@@ -54,7 +54,7 @@ const Links: React.FC = () => {
           url="/staff"
           className="menu-item"
         >
-          <FaPhone className="nav_icon" />
+          <FaUserFriends  className="nav_icon" />
         </MenuItem>
 
         <MenuItem
@@ -62,7 +62,7 @@ const Links: React.FC = () => {
           url="/vehicle"
           className="menu-item"
         >
-          <FaPhone className="nav_icon" />
+          <FaCar  className="nav_icon" />
         </MenuItem>
 
         <MenuItem
@@ -70,7 +70,7 @@ const Links: React.FC = () => {
           url="/Crop"
           className="menu-item"
         >
-          <FaBlog className="nav_icon" />
+          <FaSeedling  className="nav_icon" />
         </MenuItem>
       </nav>
     </div>
