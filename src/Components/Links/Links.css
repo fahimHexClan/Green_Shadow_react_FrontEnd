@@ -69,7 +69,7 @@ display: flex; /* Flexbox layout */
 
 .nav-title {
   font-size: 18px;
-  color: rgb(14, 14, 14);
+  color:  rgb(5, 171, 63);
   margin-left: 9%; /* Pushes the title to the right */
 
   opacity: 0;
@@ -87,7 +87,7 @@ display: flex; /* Flexbox layout */
   display: flex;
   align-items: center;
   margin: 10px 0;
-  padding: 10px;
+  padding: 15px;
   border-radius: 4px;
   color: #080808;
   cursor: pointer;
@@ -95,7 +95,7 @@ display: flex; /* Flexbox layout */
 }
 
 .menu-item:hover {
-  background-color: #1abc9c;
+  background-color: #93e6d5;
   padding-left: 30px;
   transform: scale(1.05);
 }
@@ -122,6 +122,8 @@ display: flex; /* Flexbox layout */
 
 .links-container.expanded .nav_icon {
   font-size: 24px; /* Normal icon size for expanded state */
+  color: rgb(58, 181, 79);
+
 }
 
 .links-container.collapsed .menu-text {
