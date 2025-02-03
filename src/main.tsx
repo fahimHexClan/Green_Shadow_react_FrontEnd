@@ -7,9 +7,12 @@ import {
 
 import "./index.css";
 import App from "./App.tsx";
-import AboutUs from "./Components/Pagess/MonitoringLog.tsx";
-import ContactUs from "./Components/Pagess/Crop.tsx";
 import Crop from "./Components/Pagess/Crop.tsx";
+import Fields from "./Components/Pagess/Fields.tsx";
+import Staff from "./Components/Pagess/Staff.tsx";
+import Vehicle from "./Components/Pagess/Vehicles.tsx";
+import MonitoringLog from "./Components/Pagess/MonitoringLog.tsx";
+import Vehicles from "./Components/Pagess/Vehicles.tsx";
 
 
 const router = createBrowserRouter([
@@ -18,18 +21,25 @@ const router = createBrowserRouter([
     element: <App />,
   },
   {
+    path: "/monitorLog",
+    element: <MonitoringLog />,
+  },
+  {
     path: "/Crop",
     element: <Crop />,
   },
   {
-    path: "/about",
-    element: <AboutUs />,
+    path: "/field",
+    element: <Fields />,
   },
   {
-    path: "/contact",
-    element: <ContactUs />,
+    path: "/staff",
+    element: <Staff />,
   },
-
+  {
+    path: "/vehicle",
+    element: <Vehicles />,
+  }
 ]);
 
 createRoot(document.getElementById("root")!).render(

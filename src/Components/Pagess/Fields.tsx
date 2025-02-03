@@ -2,7 +2,7 @@ import React from "react";
 import BodyContent from "../BodyContent/BodyContent";
 import HeaderContent from "../HeaderContent/HeaderContent";
 
-const Field: React.FC = () => {
+const Fields: React.FC = () => {
   return (
     <div className="app-container">
       <HeaderContent />
@@ -13,4 +13,4 @@ const Field: React.FC = () => {
   );
 };
 
-export default Field;
+export default Fields;

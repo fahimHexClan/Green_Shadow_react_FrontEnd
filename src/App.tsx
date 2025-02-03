@@ -9,8 +9,8 @@ function App() {
     <div className="app-container">
     <HeaderContent/>
       <BodyContent>
-        <h1>Home</h1>
-        <p>Welcome to the Home Page!</p>
+        <h1>DashBoard</h1>
+        <p>Welcome to the DashBoard!</p>
       </BodyContent>
     </div>
   );

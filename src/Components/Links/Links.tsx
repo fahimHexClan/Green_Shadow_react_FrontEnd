@@ -18,31 +18,48 @@ const Links: React.FC = () => {
         <div className="toggle-btn" onClick={toggleSidebar} aria-label="Toggle sidebar">
           <FaBars />
         </div>
-        <h2 className="nav-title">DASHBOARD</h2>
+        <h2 className="nav-title">GREEN SHADOW</h2>
       </header>
 
       {/* Sidebar Navigation */}
       <nav className={`navigation ${isSidebarVisible ? 'visible' : ''}`}>
         {/* Menu Items */}
         <MenuItem
-          linktext={isSidebarVisible ? 'Home' : ''}
-          url="/"
-          className="menu-item"
-        >
-          <FaHome className="nav_icon" />
-        </MenuItem>
+  linktext={isSidebarVisible ? 'DashBoard' : ''}
+  url="/"  // Correct URL
+  className="menu-item"
+>
+  <FaHome className="nav_icon" />
+</MenuItem>
+
 
         <MenuItem
-          linktext={isSidebarVisible ? 'About Us' : ''}
-          url="/about"
+          linktext={isSidebarVisible ? 'Monitor Log' : ''}
+          url="/monitorLog"
           className="menu-item"
         >
           <FaInfoCircle className="nav_icon" />
         </MenuItem>
 
         <MenuItem
-          linktext={isSidebarVisible ? 'Contact Us' : ''}
-          url="/contact"
+          linktext={isSidebarVisible ? 'Field' : ''}
+          url="/field"
+          className="menu-item"
+        >
+          <FaPhone className="nav_icon" />
+        </MenuItem>
+
+        <MenuItem
+          linktext={isSidebarVisible ? 'Staff' : ''}
+          url="/staff"
+          className="menu-item"
+        >
+          <FaPhone className="nav_icon" />
+        </MenuItem>
+
+        <MenuItem
+          linktext={isSidebarVisible ? 'Vehicle' : ''}
+          url="/vehicle"
           className="menu-item"
         >
           <FaPhone className="nav_icon" />
