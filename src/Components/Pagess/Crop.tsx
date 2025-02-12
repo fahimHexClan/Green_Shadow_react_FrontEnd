@@ -1,44 +1,78 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import BodyContent from "../BodyContent/BodyContent";
 import HeaderContent from "../HeaderContent/HeaderContent";
 import "./pagesCss/Crop.css";
 
+const mockCropData = [
+  {
+    cropId: "C001",
+    cropCategory: "Veg",
+    commonName: "Carrot",
+    image: "assets/field1.jpg",
+    scientificName: "GOWWAA",
+    season: "Winter",
+    fieldId: "F001",
+    logId: "L001",
+  },
+];
+
 const Crop: React.FC = () => {
-  const [isAddCropModalOpen, setIsAddCropModalOpen] = useState(false);
-  const [isUpdateCropModalOpen, setIsUpdateCropModalOpen] = useState(false);
+  const [crops, setCrops] = useState(mockCropData);
+  const [editingId, setEditingId] = useState<string | null>(null);
+  const [editedCrop, setEditedCrop] = useState<any>({});
+  const [newCrop, setNewCrop] = useState<any>({});
+  const [showAddForm, setShowAddForm] = useState(false);
 
-  useEffect(() => {
-    if (isAddCropModalOpen) {
-      document.getElementById("addCropModal")?.focus();
-    }
-    if (isUpdateCropModalOpen) {
-      document.getElementById("updateCropModal")?.focus();
-    }
-  }, [isAddCropModalOpen, isUpdateCropModalOpen]);
+  const handleEditClick = (crop: any) => {
+    setEditingId(crop.cropId);
+    setEditedCrop({ ...crop });
+  };
 
-  const openAddCropModal = () => setIsAddCropModalOpen(true);
-  const closeAddCropModal = () => setIsAddCropModalOpen(false);
+  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>, field: string) => {
+    setEditedCrop({ ...editedCrop, [field]: e.target.value });
+  };
 
-  const openUpdateCropModal = () => setIsUpdateCropModalOpen(true);
-  const closeUpdateCropModal = () => setIsUpdateCropModalOpen(false);
+  const handleNewCropChange = (e: React.ChangeEvent<HTMLInputElement>, field: string) => {
+    setNewCrop({ ...newCrop, [field]: e.target.value });
+  };
+
+  const handleSaveClick = () => {
+    setCrops(crops.map(crop => (crop.cropId === editingId ? editedCrop : crop)));
+    setEditingId(null);
+  };
+
+  const handleAddCrop = () => {
+    setCrops([...crops, { ...newCrop, cropId: `C00${crops.length + 1}` }]);
+    setShowAddForm(false);
+    setNewCrop({});
+  };
+
+  const handleDeleteClick = (cropId: string) => {
+    setCrops(crops.filter(crop => crop.cropId !== cropId));
+  };
 
   return (
     <div className="app-container">
       <HeaderContent />
       <BodyContent>
         <h1 className="PageHeader">Crop Management</h1>
-        <p className="PageSubHead">
-          Handles information related to crop types and growth stages.
-        </p>
+        <p className="PageSubHead">Handles information related to crop types and growth stages.</p>
 
-        <button
-          className="btn btn-success"
-          data-bs-toggle="modal"
-          data-bs-target="#addCropModal"
-          onClick={openAddCropModal}
-        >
-          <i className="fas fa-plus-circle me-2"></i>Add New Crop
+        <button className="btn btn-success" onClick={() => setShowAddForm(!showAddForm)}>
+          <i className="fas fa-plus-circle me-2"></i> {showAddForm ? "Cancel" : "Add New Crop"}
         </button>
+
+        {showAddForm && (
+          <div className="add-crop-form">
+            <input type="text" placeholder="Crop Category" onChange={(e) => handleNewCropChange(e, "cropCategory")} />
+            <input type="text" placeholder="Common Name" onChange={(e) => handleNewCropChange(e, "commonName")} />
+            <input type="text" placeholder="Scientific Name" onChange={(e) => handleNewCropChange(e, "scientificName")} />
+            <input type="text" placeholder="Season" onChange={(e) => handleNewCropChange(e, "season")} />
+            <input type="text" placeholder="Field ID" onChange={(e) => handleNewCropChange(e, "fieldId")} />
+            <input type="text" placeholder="Log ID" onChange={(e) => handleNewCropChange(e, "logId")} />
+            <button className="btn btn-primary" onClick={handleAddCrop}>Save Crop</button>
+          </div>
+        )}
 
         <div className="table-container mt-4">
           <table className="table table-striped table-hover align-middle">
@@ -56,152 +90,36 @@ const Crop: React.FC = () => {
               </tr>
             </thead>
             <tbody>
-              <tr>
-                <td>C001</td>
-                <td>Veg</td>
-                <td>Carrot</td>
-                <td>
-                  <img
-                    src="assets/field1.jpg"
-                    alt="Crop Image 1"
-                    className="img-fluid"
-                    width="100"
-                  />
-                </td>
-                <td>GOWWAA</td>
-                <td>Winter</td>
-                <td>F001</td>
-                <td>L001</td>
-                <td>
-                  <button
-                    className="btn btn-outline-primary btn-sm"
-                    onClick={openUpdateCropModal}
-                  >
-                    <i className="fas fa-edit"></i>
-                  </button>
-                  <button className="btn btn-outline-danger btn-sm">
-                    <i className="fas fa-trash"></i>
-                  </button>
-                </td>
-              </tr>
+              {crops.map((crop) => (
+                <tr key={crop.cropId}>
+                  <td>{crop.cropId}</td>
+                  <td>{editingId === crop.cropId ? (<input type="text" value={editedCrop.cropCategory} onChange={(e) => handleInputChange(e, "cropCategory")} />) : (crop.cropCategory)}</td>
+                  <td>{editingId === crop.cropId ? (<input type="text" value={editedCrop.commonName} onChange={(e) => handleInputChange(e, "commonName")} />) : (crop.commonName)}</td>
+                  <td><img src={crop.image} alt="Crop" className="img-fluid" width="100" /></td>
+                  <td>{editingId === crop.cropId ? (<input type="text" value={editedCrop.scientificName} onChange={(e) => handleInputChange(e, "scientificName")} />) : (crop.scientificName)}</td>
+                  <td>{editingId === crop.cropId ? (<input type="text" value={editedCrop.season} onChange={(e) => handleInputChange(e, "season")} />) : (crop.season)}</td>
+                  <td>{editingId === crop.cropId ? (<input type="text" value={editedCrop.fieldId} onChange={(e) => handleInputChange(e, "fieldId")} />) : (crop.fieldId)}</td>
+                  <td>{editingId === crop.cropId ? (<input type="text" value={editedCrop.logId} onChange={(e) => handleInputChange(e, "logId")} />) : (crop.logId)}</td>
+                  <td>
+                    {editingId === crop.cropId ? (
+                      <button className="btn btn-outline-success btn-sm" onClick={handleSaveClick}>
+                        <i className="fas fa-save"></i> Save
+                      </button>
+                    ) : (
+                      <button className="btn btn-outline-primary btn-sm" onClick={() => handleEditClick(crop)}>
+                        <i className="fas fa-edit"></i> Edit
+                      </button>
+                    )}
+                    <button className="btn btn-outline-danger btn-sm" onClick={() => handleDeleteClick(crop.cropId)}>
+                      <i className="fas fa-trash"></i> Delete
+                    </button>
+                  </td>
+                </tr>
+              ))}
             </tbody>
           </table>
         </div>
-
-        {/* Modals */}
-        <AddCropModal isOpen={isAddCropModalOpen} close={closeAddCropModal} />
-        <UpdateCropModal isOpen={isUpdateCropModalOpen} close={closeUpdateCropModal} />
       </BodyContent>
-    </div>
-  );
-};
-
-const AddCropModal: React.FC<{ isOpen: boolean; close: () => void }> = ({
-  isOpen,
-  close,
-}) => {
-  const handleAddCrop = async () => {
-    try {
-      console.log("Adding crop...");
-      await someApiRequest();
-      console.log("Crop added successfully!");
-      close(); // Close modal
-    } catch (error) {
-      console.error("Error adding crop:", error);
-    }
-  };
-
-  return (
-    <div
-      className={`modal fade ${isOpen ? "show" : ""}`}
-      id="addCropModal"
-      tabIndex={-1}
-      aria-labelledby="addCropModalLabel"
-      aria-hidden={!isOpen}
-      style={{ display: isOpen ? "block" : "none" }}
-    >
-      <div className="modal-dialog">
-        <div className="modal-content">
-          <div className="modal-header">
-            <h5 className="modal-title" id="addCropModalLabel">
-              Add New Crop
-            </h5>
-            <button
-              type="button"
-              className="btn-close"
-              data-bs-dismiss="modal"
-              aria-label="Close"
-              onClick={close}
-            ></button>
-          </div>
-          <div className="modal-body">
-            <form id="addCropForm">
-              <button
-                type="button"
-                className="btn btn-outline-success w-100"
-                onClick={handleAddCrop}
-              >
-                Save Crop
-              </button>
-            </form>
-          </div>
-        </div>
-      </div>
-    </div>
-  );
-};
-
-const UpdateCropModal: React.FC<{ isOpen: boolean; close: () => void }> = ({
-  isOpen,
-  close,
-}) => {
-  const handleUpdateCrop = async () => {
-    try {
-      console.log("Updating crop...");
-      await someApiRequest();
-      console.log("Crop updated successfully!");
-      close(); // Close modal
-    } catch (error) {
-      console.error("Error updating crop:", error);
-    }
-  };
-
-  return (
-    <div
-      className={`modal fade ${isOpen ? "show" : ""}`}
-      id="updateCropModal"
-      tabIndex={-1}
-      aria-labelledby="updateCropModalLabel"
-      aria-hidden={!isOpen}
-      style={{ display: isOpen ? "block" : "none" }}
-    >
-      <div className="modal-dialog">
-        <div className="modal-content">
-          <div className="modal-header">
-            <h5 className="modal-title" id="updateCropModalLabel">
-              Update Crop
-            </h5>
-            <button
-              type="button"
-              className="btn-close"
-              data-bs-dismiss="modal"
-              aria-label="Close"
-              onClick={close}
-            ></button>
-          </div>
-          <div className="modal-body">
-            <form id="updateCropForm">
-              <button
-                type="button"
-                className="btn btn-outline-success w-100"
-                onClick={handleUpdateCrop}
-              >
-                Update Crop
-              </button>
-            </form>
-          </div>
-        </div>
-      </div>
     </div>
   );
 };
