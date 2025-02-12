@@ -1,26 +1,45 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import BodyContent from "../BodyContent/BodyContent";
 import HeaderContent from "../HeaderContent/HeaderContent";
-import './pagesCss/Crop.css';
+import "./pagesCss/Crop.css";
 
 const Crop: React.FC = () => {
+  const [isAddCropModalOpen, setIsAddCropModalOpen] = useState(false);
+  const [isUpdateCropModalOpen, setIsUpdateCropModalOpen] = useState(false);
+
+  useEffect(() => {
+    if (isAddCropModalOpen) {
+      document.getElementById("addCropModal")?.focus();
+    }
+    if (isUpdateCropModalOpen) {
+      document.getElementById("updateCropModal")?.focus();
+    }
+  }, [isAddCropModalOpen, isUpdateCropModalOpen]);
+
+  const openAddCropModal = () => setIsAddCropModalOpen(true);
+  const closeAddCropModal = () => setIsAddCropModalOpen(false);
+
+  const openUpdateCropModal = () => setIsUpdateCropModalOpen(true);
+  const closeUpdateCropModal = () => setIsUpdateCropModalOpen(false);
+
   return (
     <div className="app-container">
       <HeaderContent />
       <BodyContent>
-        <h3>Crop Management</h3>
-        <p>Handles information related to crop types and growth stages.</p>
+        <h1 className="PageHeader">Crop Management</h1>
+        <p className="PageSubHead">
+          Handles information related to crop types and growth stages.
+        </p>
 
-        {/* Add New Field Button */}
         <button
           className="btn btn-success"
           data-bs-toggle="modal"
           data-bs-target="#addCropModal"
+          onClick={openAddCropModal}
         >
           <i className="fas fa-plus-circle me-2"></i>Add New Crop
         </button>
 
-        {/* Field Table */}
         <div className="table-container mt-4">
           <table className="table table-striped table-hover align-middle">
             <thead>
@@ -56,8 +75,7 @@ const Crop: React.FC = () => {
                 <td>
                   <button
                     className="btn btn-outline-primary btn-sm"
-                    data-bs-toggle="modal"
-                    data-bs-target="#updateCropModal"
+                    onClick={openUpdateCropModal}
                   >
                     <i className="fas fa-edit"></i>
                   </button>
@@ -71,87 +89,121 @@ const Crop: React.FC = () => {
         </div>
 
         {/* Modals */}
-        <AddCropModal />
-        <UpdateCropModal />
+        <AddCropModal isOpen={isAddCropModalOpen} close={closeAddCropModal} />
+        <UpdateCropModal isOpen={isUpdateCropModalOpen} close={closeUpdateCropModal} />
       </BodyContent>
     </div>
   );
 };
 
-const AddCropModal: React.FC = () => (
-  <div
-    className="modal fade"
-    id="addCropModal"
-    tabIndex={-1}
-    aria-labelledby="addCropModalLabel"
-    aria-hidden="true"
-  >
-    <div className="modal-dialog">
-      <div className="modal-content">
-        <div className="modal-header">
-          <h5 className="modal-title" id="addCropModalLabel">
-            Add New Crop
-          </h5>
-          <button
-            type="button"
-            className="btn-close"
-            data-bs-dismiss="modal"
-            aria-label="Close"
-          ></button>
-        </div>
-        <div className="modal-body">
-          <form id="addCropForm">
-            {/* Add form fields here */}
-            <button
-              type="button"
-              className="btn btn-outline-success w-100"
-              onClick={() => console.log("Add crop functionality")}
-            >
-              Save Crop
-            </button>
-          </form>
-        </div>
-      </div>
-    </div>
-  </div>
-);
+const AddCropModal: React.FC<{ isOpen: boolean; close: () => void }> = ({
+  isOpen,
+  close,
+}) => {
+  const handleAddCrop = async () => {
+    try {
+      console.log("Adding crop...");
+      await someApiRequest();
+      console.log("Crop added successfully!");
+      close(); // Close modal
+    } catch (error) {
+      console.error("Error adding crop:", error);
+    }
+  };
 
-const UpdateCropModal: React.FC = () => (
-  <div
-    className="modal fade"
-    id="updateCropModal"
-    tabIndex={-1}
-    aria-labelledby="updateCropModalLabel"
-    aria-hidden="true"
-  >
-    <div className="modal-dialog">
-      <div className="modal-content">
-        <div className="modal-header">
-          <h5 className="modal-title" id="updateCropModalLabel">
-            Update Crop
-          </h5>
-          <button
-            type="button"
-            className="btn-close"
-            data-bs-dismiss="modal"
-            aria-label="Close"
-          ></button>
-        </div>
-        <div className="modal-body">
-          <form id="updateCropForm">
-            {/* Add update form fields here */}
+  return (
+    <div
+      className={`modal fade ${isOpen ? "show" : ""}`}
+      id="addCropModal"
+      tabIndex={-1}
+      aria-labelledby="addCropModalLabel"
+      aria-hidden={!isOpen}
+      style={{ display: isOpen ? "block" : "none" }}
+    >
+      <div className="modal-dialog">
+        <div className="modal-content">
+          <div className="modal-header">
+            <h5 className="modal-title" id="addCropModalLabel">
+              Add New Crop
+            </h5>
             <button
               type="button"
-              className="btn btn-outline-success w-100"
-              onClick={() => console.log("Update crop functionality")}
-            >
-              Update Crop
-            </button>
-          </form>
+              className="btn-close"
+              data-bs-dismiss="modal"
+              aria-label="Close"
+              onClick={close}
+            ></button>
+          </div>
+          <div className="modal-body">
+            <form id="addCropForm">
+              <button
+                type="button"
+                className="btn btn-outline-success w-100"
+                onClick={handleAddCrop}
+              >
+                Save Crop
+              </button>
+            </form>
+          </div>
         </div>
       </div>
     </div>
-  </div>
-);
+  );
+};
+
+const UpdateCropModal: React.FC<{ isOpen: boolean; close: () => void }> = ({
+  isOpen,
+  close,
+}) => {
+  const handleUpdateCrop = async () => {
+    try {
+      console.log("Updating crop...");
+      await someApiRequest();
+      console.log("Crop updated successfully!");
+      close(); // Close modal
+    } catch (error) {
+      console.error("Error updating crop:", error);
+    }
+  };
+
+  return (
+    <div
+      className={`modal fade ${isOpen ? "show" : ""}`}
+      id="updateCropModal"
+      tabIndex={-1}
+      aria-labelledby="updateCropModalLabel"
+      aria-hidden={!isOpen}
+      style={{ display: isOpen ? "block" : "none" }}
+    >
+      <div className="modal-dialog">
+        <div className="modal-content">
+          <div className="modal-header">
+            <h5 className="modal-title" id="updateCropModalLabel">
+              Update Crop
+            </h5>
+            <button
+              type="button"
+              className="btn-close"
+              data-bs-dismiss="modal"
+              aria-label="Close"
+              onClick={close}
+            ></button>
+          </div>
+          <div className="modal-body">
+            <form id="updateCropForm">
+              <button
+                type="button"
+                className="btn btn-outline-success w-100"
+                onClick={handleUpdateCrop}
+              >
+                Update Crop
+              </button>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+};
 
 export default Crop;
