@@ -175,15 +175,41 @@ const Crop: React.FC = () => {
                   <td>{editingId === crop.cropId ? (<input type="text" value={editedCrop.cropCategory} onChange={(e) => handleInputChange(e, "cropCategory")} />) : (crop.cropCategory)}</td>
                   <td>{editingId === crop.cropId ? (<input type="text" value={editedCrop.commonName} onChange={(e) => handleInputChange(e, "commonName")} />) : (crop.commonName)}</td>
                   <td>
-                    {editingId === crop.cropId ? (
-                      <>
-                        <input type="file" accept="image/*" onChange={(e) => handleInputChange(e, "image")} />
-                        {editedCrop.image && <img src={editedCrop.image} alt="Crop Preview" className="img-fluid mt-2" width="100" />}
-                      </>
-                    ) : (
-                      crop.image ? <img src={crop.image} alt="Crop" className="img-fluid" width="100" /> : "No Image"
-                    )}
-                  </td>
+  {editingId === crop.cropId ? (
+    <>
+      <input type="file" accept="image/*" onChange={(e) => handleInputChange(e, "image")} />
+      {editedCrop.image && (
+        <img
+          src={editedCrop.image}
+          alt="Crop Preview"
+          className="img-fluid mt-2"
+          style={{
+            width: "30px",
+            height: "30px",
+            borderRadius: "30px",
+            marginRight: "50%",
+          }}
+        />
+      )}
+    </>
+  ) : (
+    crop.image ? (
+      <img
+        src={crop.image}
+        alt="Crop"
+        className="img-fluid"
+        style={{
+          width: "80px",
+          height: "80px",
+          borderRadius: "160px",
+        }}
+      />
+    ) : (
+      "No Image"
+    )
+  )}
+</td>
+
 
                   <td>{editingId === crop.cropId ? (<input type="text" value={editedCrop.scientificName} onChange={(e) => handleInputChange(e, "scientificName")} />) : (crop.scientificName)}</td>
                   <td>{editingId === crop.cropId ? (<input type="text" value={editedCrop.season} onChange={(e) => handleInputChange(e, "season")} />) : (crop.season)}</td>
