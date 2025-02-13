@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import BodyContent from "../BodyContent/BodyContent";
 import HeaderContent from "../HeaderContent/HeaderContent";
 import "./pagesCss/Crop.css";
+import fieldImage from "../../assets/crop1.jpg";
 
 const mockCropData = [
   {
@@ -44,9 +45,10 @@ const Crop: React.FC = () => {
   };
   
 
-  const handleNewCropChange = (e: React.ChangeEvent<HTMLInputElement>, field: string) => {
-    setNewCrop({ ...newCrop, [field]: e.target.value });
+  const handleNewCropChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>, field: string) => {
+    setNewCrop((prev: any) => ({ ...prev, [field]: e.target.value }));
   };
+  
 
   const handleSaveClick = () => {
     setCrops(crops.map(crop => (crop.cropId === editingId ? editedCrop : crop)));
@@ -101,7 +103,7 @@ const Crop: React.FC = () => {
                   if (file) {
                     const reader = new FileReader();
                     reader.onload = () => {
-                      setNewCrop((prev) => ({ ...prev, image: reader.result as string }));
+                      setNewCrop((prev:any) => ({ ...prev, image: reader.result as string }));
                     };
                     reader.readAsDataURL(file);
                   }
@@ -234,6 +236,9 @@ const Crop: React.FC = () => {
             </tbody>
           </table>
         </div>
+        <div>
+      <img className="cropImage" src={fieldImage} alt="Crop" />
+    </div>
       </BodyContent>
     </div>
   );
