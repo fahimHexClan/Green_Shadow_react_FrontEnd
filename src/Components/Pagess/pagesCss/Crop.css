@@ -123,9 +123,16 @@
   }
   
   .table th {
-    background-color: #72c38b;
-    color: rgb(21, 20, 20);
+    background-color: #218838;
+    color:#fff;
   }
+  .table tbody {
+    font-size: 20px;
+  font-weight: 600;
+  color: #333;
+  font-family: "Arial", sans-serif; 
+  }
+  
   
   .table tr:nth-child(even) {
     background-color: #dceae6;
@@ -164,7 +171,7 @@
   
   input.form-control {
     padding: 10px;
-    font-size: 1rem;
+    font-size: 13px;
     border-radius: 5px;
     border: 1px solid #131313;
   }
@@ -184,13 +191,52 @@
       padding: 15px;
     }
   
-    .table th,
-    .table td {
-      padding: 10px;
+    .table-container {
+      overflow-x: auto;
+      max-width: 100%;
+      padding: 0 10px;
     }
   
-    .table-container {
-      margin-top: 20px;
+    .table {
+      width: 100%;
+      font-size: 14px;
+      border-collapse: collapse;
+    }
+  
+    .table th,
+    .table td {
+      padding: 8px;
+      font-size: 12px;
+      text-align: center;
+    }
+  
+    .table th {
+      background-color: #218838;
+      color: white;
+      font-weight: bold;
+    }
+  
+    .table tr {
+      display: block;
+      margin-bottom: 10px;
+      border-bottom: 1px solid #ddd;
+    }
+  
+    .table td {
+      display: block;
+      text-align: right;
+      position: relative;
+      padding-left: 50%;
+    }
+  
+    .table td::before {
+      content: attr(data-label);
+      position: absolute;
+      left: 10px;
+      width: 50%;
+      text-align: left;
+      font-weight: bold;
+      color: #333;
     }
   
     button {
@@ -291,7 +337,7 @@
 
 .form-actions {
   display: flex;
-  justify-content: space-between;
+  justify-content: flex-end;
   gap: 10px;
   margin-top: 10px;
 }

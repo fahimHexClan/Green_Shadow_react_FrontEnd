@@ -3,6 +3,8 @@ import BodyContent from "../BodyContent/BodyContent";
 import HeaderContent from "../HeaderContent/HeaderContent";
 import "./pagesCss/Crop.css";
 import fieldImage from "../../assets/crop1.jpg";
+import "@fortawesome/fontawesome-free/css/all.min.css";
+
 
 const mockCropData = [
   {
@@ -174,32 +176,21 @@ const Crop: React.FC = () => {
               {crops.map((crop) => (
                 <tr key={crop.cropId}>
                   <td>{crop.cropId}</td>
-                  <td>{editingId === crop.cropId ? (<input type="text" value={editedCrop.cropCategory} onChange={(e) => handleInputChange(e, "cropCategory")} />) : (crop.cropCategory)}</td>
-                  <td>{editingId === crop.cropId ? (<input type="text" value={editedCrop.commonName} onChange={(e) => handleInputChange(e, "commonName")} />) : (crop.commonName)}</td>
+                  <td>{editingId === crop.cropId ? (<input type="text"  className="form-control" value={editedCrop.cropCategory} onChange={(e) => handleInputChange(e, "cropCategory")} />) : (crop.cropCategory)}</td>
+                  <td>{editingId === crop.cropId ? (<input type="text"  className="form-control" value={editedCrop.commonName} onChange={(e) => handleInputChange(e, "commonName")} />) : (crop.commonName)}</td>
                   <td>
   {editingId === crop.cropId ? (
     <>
-      <input type="file" accept="image/*" onChange={(e) => handleInputChange(e, "image")} />
-      {editedCrop.image && (
-        <img
-          src={editedCrop.image}
-          alt="Crop Preview"
-          className="img-fluid mt-2"
-          style={{
-            width: "30px",
-            height: "30px",
-            borderRadius: "30px",
-            marginRight: "50%",
-          }}
-        />
-      )}
+      <input type="file"         className="form-control"
+ accept="image/*" onChange={(e) => handleInputChange(e, "image")} />
+  
     </>
   ) : (
     crop.image ? (
       <img
         src={crop.image}
         alt="Crop"
-        className="img-fluid"
+        className="form-control"
         style={{
           width: "80px",
           height: "80px",
@@ -213,22 +204,22 @@ const Crop: React.FC = () => {
 </td>
 
 
-                  <td>{editingId === crop.cropId ? (<input type="text" value={editedCrop.scientificName} onChange={(e) => handleInputChange(e, "scientificName")} />) : (crop.scientificName)}</td>
-                  <td>{editingId === crop.cropId ? (<input type="text" value={editedCrop.season} onChange={(e) => handleInputChange(e, "season")} />) : (crop.season)}</td>
-                  <td>{editingId === crop.cropId ? (<input type="text" value={editedCrop.fieldId} onChange={(e) => handleInputChange(e, "fieldId")} />) : (crop.fieldId)}</td>
-                  <td>{editingId === crop.cropId ? (<input type="text" value={editedCrop.logId} onChange={(e) => handleInputChange(e, "logId")} />) : (crop.logId)}</td>
+                  <td>{editingId === crop.cropId ? (<input type="text" className="form-control" value={editedCrop.scientificName} onChange={(e) => handleInputChange(e, "scientificName")} />) : (crop.scientificName)}</td>
+                  <td>{editingId === crop.cropId ? (<input type="text" className="form-control" value={editedCrop.season} onChange={(e) => handleInputChange(e, "season")} />) : (crop.season)}</td>
+                  <td>{editingId === crop.cropId ? (<input type="text" className="form-control" value={editedCrop.fieldId} onChange={(e) => handleInputChange(e, "fieldId")} />) : (crop.fieldId)}</td>
+                  <td>{editingId === crop.cropId ? (<input type="text" className="form-control" value={editedCrop.logId} onChange={(e) => handleInputChange(e, "logId")} />) : (crop.logId)}</td>
                   <td>
                     {editingId === crop.cropId ? (
                       <button className="btn btn-outline-success btn-sm" onClick={handleSaveClick}>
-                        <i className="fas fa-save"></i> Save
+                        <i className="fas fa-save"></i> 
                       </button>
                     ) : (
-                      <button className="btn btn-outline-primary btn-sm" onClick={() => handleEditClick(crop)}>
-                        <i className="fas fa-edit"></i> Edit
+                      <button className="btn btn-outline-primary btn-sm me-2" onClick={() => handleEditClick(crop)}>
+                        <i className="fas fa-edit"></i> 
                       </button>
                     )}
                     <button className="btn btn-outline-danger btn-sm" onClick={() => handleDeleteClick(crop.cropId)}>
-                      <i className="fas fa-trash"></i> Delete
+                      <i className="fas fa-trash"></i> 
                     </button>
                   </td>
                 </tr>
