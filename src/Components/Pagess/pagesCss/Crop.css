@@ -103,8 +103,8 @@
     color: white;
   }
   
-  /* Table Styles */
   .table-container {
+    width: 100%;
     margin-top: 30px;
     overflow-x: auto;
   }
@@ -193,50 +193,10 @@
   
     .table-container {
       overflow-x: auto;
-      max-width: 100%;
-      padding: 0 10px;
     }
   
-    .table {
-      width: 100%;
-      font-size: 14px;
-      border-collapse: collapse;
-    }
-  
-    .table th,
-    .table td {
-      padding: 8px;
-      font-size: 12px;
-      text-align: center;
-    }
-  
-    .table th {
-      background-color: #218838;
-      color: white;
-      font-weight: bold;
-    }
-  
-    .table tr {
-      display: block;
-      margin-bottom: 10px;
-      border-bottom: 1px solid #ddd;
-    }
-  
-    .table td {
-      display: block;
-      text-align: right;
-      position: relative;
-      padding-left: 50%;
-    }
-  
-    .table td::before {
-      content: attr(data-label);
-      position: absolute;
-      left: 10px;
-      width: 50%;
-      text-align: left;
-      font-weight: bold;
-      color: #333;
+    table {
+      min-width: 600px; 
     }
   
     button {
@@ -375,7 +335,7 @@
 .cropImage{
   width: 100%;  /* Adjusts width dynamically */
   max-width: 1800px;  /* Ensures it doesn't exceed original size */
-  height: 400px;  /* Maintains aspect ratio */
+  height: 500px;  /* Maintains aspect ratio */
   border-radius: 80px;
   padding-top: 100px;
 }
