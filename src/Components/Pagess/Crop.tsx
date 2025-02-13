@@ -29,8 +29,20 @@ const Crop: React.FC = () => {
   };
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>, field: string) => {
-    setEditedCrop({ ...editedCrop, [field]: e.target.value });
+    if (field === "image") {
+      const file = e.target.files?.[0];
+      if (file) {
+        const reader = new FileReader();
+        reader.onload = () => {
+          setEditedCrop((prev: any) => ({ ...prev, image: reader.result as string }));
+        };
+        reader.readAsDataURL(file);
+      }
+    } else {
+      setEditedCrop((prev: any) => ({ ...prev, [field]: e.target.value }));
+    }
   };
+  
 
   const handleNewCropChange = (e: React.ChangeEvent<HTMLInputElement>, field: string) => {
     setNewCrop({ ...newCrop, [field]: e.target.value });
@@ -50,6 +62,7 @@ const Crop: React.FC = () => {
   const handleDeleteClick = (cropId: string) => {
     setCrops(crops.filter(crop => crop.cropId !== cropId));
   };
+  
 
   return (
     <div className="app-container">
@@ -58,19 +71,85 @@ const Crop: React.FC = () => {
         <h1 className="PageHeader">Crop Management</h1>
         <p className="PageSubHead">Handles information related to crop types and growth stages.</p>
 
-        <button className="btn btn-success" onClick={() => setShowAddForm(!showAddForm)}>
+        <button className="add-crop-btn" onClick={() => setShowAddForm(!showAddForm)}>
           <i className="fas fa-plus-circle me-2"></i> {showAddForm ? "Cancel" : "Add New Crop"}
         </button>
 
         {showAddForm && (
           <div className="add-crop-form">
-            <input type="text" placeholder="Crop Category" onChange={(e) => handleNewCropChange(e, "cropCategory")} />
+
+        <div className="input-group">
+          <select onChange={(e) => handleNewCropChange(e, "cropCategory")}>
+            <option value="">Select Crop Category</option>
+            <option value="Veg">Vegetable</option>
+            <option value="Fruit">Fruit</option>
+            <option value="Grain">Grain</option>
+          </select>
+        </div>
+
+
+            <div className="input-group">
             <input type="text" placeholder="Common Name" onChange={(e) => handleNewCropChange(e, "commonName")} />
+            </div>
+
+            <div className="input-group">
+              <input
+                type="file"
+                accept="image/*"
+                onChange={(e) => {
+                  const file = e.target.files?.[0];
+                  if (file) {
+                    const reader = new FileReader();
+                    reader.onload = () => {
+                      setNewCrop((prev) => ({ ...prev, image: reader.result as string }));
+                    };
+                    reader.readAsDataURL(file);
+                  }
+                }}
+              />
+            </div>
+
+
+            <div className="input-group">
             <input type="text" placeholder="Scientific Name" onChange={(e) => handleNewCropChange(e, "scientificName")} />
-            <input type="text" placeholder="Season" onChange={(e) => handleNewCropChange(e, "season")} />
-            <input type="text" placeholder="Field ID" onChange={(e) => handleNewCropChange(e, "fieldId")} />
-            <input type="text" placeholder="Log ID" onChange={(e) => handleNewCropChange(e, "logId")} />
-            <button className="btn btn-primary" onClick={handleAddCrop}>Save Crop</button>
+            </div>
+
+            <div className="input-group">
+            <select onChange={(e) => handleNewCropChange(e, "season")}>
+              <option value="">Select Season</option>
+              <option value="Spring">Spring</option>
+              <option value="Summer">Summer</option>
+              <option value="Autumn">Autumn</option>
+              <option value="Winter">Winter</option>
+            </select>
+          </div>
+
+
+            <div className="input-group">
+              <select onChange={(e) => handleNewCropChange(e, "fieldId")}>
+                <option value="">Select Field ID</option>
+                <option value="F001">F001</option>
+                <option value="F002">F002</option>
+                <option value="F003">F003</option>
+                <option value="F004">F004</option>
+              </select>
+            </div>
+
+
+            <div className="input-group">
+              <select onChange={(e) => handleNewCropChange(e, "logId")}>
+                <option value="">Select Log ID</option>
+                <option value="L001">L001</option>
+                <option value="L002">L002</option>
+                <option value="L003">L003</option>
+                <option value="L004">L004</option>
+              </select>
+            </div>
+
+
+            <div className="form-actions">
+            <button className="save-btn" onClick={handleAddCrop}>Save Crop</button>
+            </div>
           </div>
         )}
 
@@ -95,7 +174,17 @@ const Crop: React.FC = () => {
                   <td>{crop.cropId}</td>
                   <td>{editingId === crop.cropId ? (<input type="text" value={editedCrop.cropCategory} onChange={(e) => handleInputChange(e, "cropCategory")} />) : (crop.cropCategory)}</td>
                   <td>{editingId === crop.cropId ? (<input type="text" value={editedCrop.commonName} onChange={(e) => handleInputChange(e, "commonName")} />) : (crop.commonName)}</td>
-                  <td><img src={crop.image} alt="Crop" className="img-fluid" width="100" /></td>
+                  <td>
+                    {editingId === crop.cropId ? (
+                      <>
+                        <input type="file" accept="image/*" onChange={(e) => handleInputChange(e, "image")} />
+                        {editedCrop.image && <img src={editedCrop.image} alt="Crop Preview" className="img-fluid mt-2" width="100" />}
+                      </>
+                    ) : (
+                      crop.image ? <img src={crop.image} alt="Crop" className="img-fluid" width="100" /> : "No Image"
+                    )}
+                  </td>
+
                   <td>{editingId === crop.cropId ? (<input type="text" value={editedCrop.scientificName} onChange={(e) => handleInputChange(e, "scientificName")} />) : (crop.scientificName)}</td>
                   <td>{editingId === crop.cropId ? (<input type="text" value={editedCrop.season} onChange={(e) => handleInputChange(e, "season")} />) : (crop.season)}</td>
                   <td>{editingId === crop.cropId ? (<input type="text" value={editedCrop.fieldId} onChange={(e) => handleInputChange(e, "fieldId")} />) : (crop.fieldId)}</td>
