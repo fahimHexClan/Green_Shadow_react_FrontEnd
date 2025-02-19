@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import MenuItem from '../MenuItem/MenuItem';
 import 'bootstrap-icons/font/bootstrap-icons.css';
 import './Links.css';
-import { FaBars, FaHome,FaSeedling ,FaMap , FaListAlt ,FaCar , FaUserFriends , FaBlog } from 'react-icons/fa';
+import { FaBars, FaHome,FaSeedling ,FaMap , FaListAlt ,FaCar , FaUserFriends , FaTools } from 'react-icons/fa';
 
 const Links: React.FC = () => {
   const [isSidebarVisible, setSidebarVisible] = useState<boolean>(false);
@@ -25,10 +25,10 @@ const Links: React.FC = () => {
       <nav className={`navigation ${isSidebarVisible ? 'visible' : ''}`}>
         {/* Menu Items */}
         <MenuItem
-  linktext={isSidebarVisible ? 'DashBoard' : ''}
-  url="/"  // Correct URL
-  className="menu-item"
->
+        linktext={isSidebarVisible ? 'DashBoard' : ''}
+        url="/"  // Correct URL
+        className="menu-item"
+      >
   <FaHome className="nav_icon" />
 </MenuItem>
 
@@ -63,6 +63,14 @@ const Links: React.FC = () => {
           className="menu-item"
         >
           <FaCar  className="nav_icon" />
+        </MenuItem>
+
+        <MenuItem
+          linktext={isSidebarVisible ? 'Equipment' : ''}
+          url="/equipment"
+          className="menu-item"
+        >
+          <FaTools  className="nav_icon" />
         </MenuItem>
 
         <MenuItem

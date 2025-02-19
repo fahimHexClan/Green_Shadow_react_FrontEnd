@@ -1,72 +1,124 @@
 import React, { useState } from "react";
+import { useSelector, useDispatch } from "react-redux";
+import { RootState } from "../../store";
+import { addItem ,removeCropItem,updateItem} from "../../Reducer/slice/CropItem";
 import BodyContent from "../BodyContent/BodyContent";
 import HeaderContent from "../HeaderContent/HeaderContent";
-import "./pagesCss/Crop.css";
+import "./pagesCss/Pages.css";
 import fieldImage from "../../assets/crop1.jpg";
 import "@fortawesome/fontawesome-free/css/all.min.css";
 
 
-const mockCropData = [
-  {
-    cropId: "C001",
-    cropCategory: "Veg",
-    commonName: "Carrot",
-    image: "assets/field1.jpg",
-    scientificName: "GOWWAA",
-    season: "Winter",
-    fieldId: "F001",
-    logId: "L001",
-  },
-];
 
 const Crop: React.FC = () => {
-  const [crops, setCrops] = useState(mockCropData);
-  const [editingId, setEditingId] = useState<string | null>(null);
-  const [editedCrop, setEditedCrop] = useState<any>({});
-  const [newCrop, setNewCrop] = useState<any>({});
-  const [showAddForm, setShowAddForm] = useState(false);
+  const crops = useSelector((state: RootState) => state.crop.items);
+  const dispatch = useDispatch();
+  
+  const [isFormVisible, setIsFormVisible] = useState(false);
+  const [formData, setFormData] = useState({
+    id: "",
+    Category: "",
+    CommonName: "",
+    SciencetificName: "",
+    Image: "",
+    Season: "",
+    FieldId: "",
+    LogId: "",
+  });
 
-  const handleEditClick = (crop: any) => {
-    setEditingId(crop.cropId);
-    setEditedCrop({ ...crop });
+  const getNextCropId = () => {
+    const existingIds = crops.map((crop) => parseInt(crop.id.replace("C", ""), 10) || 0);
+    const nextId = Math.max(0, ...existingIds) + 1;
+    return `C${String(nextId).padStart(3, "0")}`;
   };
 
-  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>, field: string) => {
-    if (field === "image") {
-      const file = e.target.files?.[0];
+  const handleInputChange = (
+    e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>,
+    field: string
+  ) => {
+    if (field === "Image") {
+      const file = (e.target as HTMLInputElement).files?.[0];
       if (file) {
         const reader = new FileReader();
         reader.onload = () => {
-          setEditedCrop((prev: any) => ({ ...prev, image: reader.result as string }));
+          setFormData((prev) => ({ ...prev, Image: reader.result as string }));
         };
         reader.readAsDataURL(file);
       }
     } else {
-      setEditedCrop((prev: any) => ({ ...prev, [field]: e.target.value }));
+      setFormData((prev) => ({ ...prev, [field]: e.target.value }));
     }
   };
-  
-
-  const handleNewCropChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>, field: string) => {
-    setNewCrop((prev: any) => ({ ...prev, [field]: e.target.value }));
-  };
-  
-
-  const handleSaveClick = () => {
-    setCrops(crops.map(crop => (crop.cropId === editingId ? editedCrop : crop)));
-    setEditingId(null);
-  };
-
   const handleAddCrop = () => {
-    setCrops([...crops, { ...newCrop, cropId: `C00${crops.length + 1}` }]);
-    setShowAddForm(false);
-    setNewCrop({});
-  };
+    if (formData.CommonName.trim() === "" || formData.Category.trim() === "") {
+      alert("Common Name and Category are required!");
+      return;
+    }
+    const newCropData = {
+      ...formData,
+      id: formData.id || getNextCropId(), // Set new ID if not editing
+    };
+    
+  
+    const existingCrop = crops.find((crop) => crop.id === formData.id);
+  
+    if (existingCrop) {
+      dispatch(updateItem(newCropData)); 
+    } else {
+      dispatch(addItem( newCropData)); // Add new crop
+    }
+  
+    resetForm();
 
-  const handleDeleteClick = (cropId: string) => {
-    setCrops(crops.filter(crop => crop.cropId !== cropId));
+  };
+  const resetForm = () => {
+    setFormData({
+      id: "",
+      Category: "",
+      CommonName: "",
+      SciencetificName: "",
+      Image: "",
+      Season: "",
+      FieldId: "",
+      LogId: "",
+    });
+    setIsFormVisible(false);
   };
   
+  const handleEditCrop = (crop: any) => {
+  setFormData(crop); // Populate form fields with existing crop data
+};
+const handleSaveEdit = () => {
+  dispatch(updateItem(formData)); // Dispatch update action
+  setFormData({
+    id: "",
+    Category: "",
+    CommonName: "",
+    SciencetificName: "",
+    Image: "",
+    Season: "",
+    FieldId: "",
+    LogId: "",
+  }); // Reset form
+}; 
+const handleCancelEdit = () => {
+  setFormData({
+    id: "",
+    Category: "",
+    CommonName: "",
+    SciencetificName: "",
+    Image: "",
+    Season: "",
+    FieldId: "",
+    LogId: "",
+  }); // Reset form without saving
+};
+
+const handleDeleteCrop = (id: string) => {
+  dispatch(removeCropItem(id)); // Dispatch delete action
+};
+
+
 
   return (
     <div className="app-container">
@@ -75,161 +127,224 @@ const Crop: React.FC = () => {
         <h1 className="PageHeader">Crop Management</h1>
         <p className="PageSubHead">Handles information related to crop types and growth stages.</p>
 
-        <button className="add-crop-btn" onClick={() => setShowAddForm(!showAddForm)}>
-          <i className="fas fa-plus-circle me-2"></i> {showAddForm ? "Cancel" : "Add New Crop"}
+      {/* Toggle Add Crop Form Button */}
+      <button className="add-crop-btn" onClick={() => setIsFormVisible(!isFormVisible)}>
+          {isFormVisible ? "Close Form" : "Add Crop"}
         </button>
 
-        {showAddForm && (
-          <div className="add-crop-form">
+        {isFormVisible && (
+        <div className="add-crop-form">
 
-        <div className="input-group">
-          <select onChange={(e) => handleNewCropChange(e, "cropCategory")}>
+      <div className="input-group">
+      <label htmlFor="id">Crop Id:</label>
+        <input type="text" placeholder="Crop ID" value={formData.id || getNextCropId()} readOnly />
+      </div>
+
+      <div className="input-group">
+      <label htmlFor="Category">Crop Category:</label>
+          <select  id="category" value={formData.Category} onChange={(e) => handleInputChange(e, "Category")}>
             <option value="">Select Crop Category</option>
             <option value="Veg">Vegetable</option>
             <option value="Fruit">Fruit</option>
             <option value="Grain">Grain</option>
           </select>
+      </div>
+          
+      <div className="input-group">
+      <label htmlFor="CommonName">Common Name:</label>
+          <input type="text" placeholder="Common Name" value={formData.CommonName} onChange={(e) => handleInputChange(e, "CommonName")} />
+      </div>
+
+      <div className="input-group">
+      <label htmlFor="Image">Crop Image:</label>
+          <input type="file" accept="image/*" onChange={(e) => handleInputChange(e, "Image")} />
+      </div>
+
+      <div className="input-group">
+      <label htmlFor="SciencetificName">Sciencetific Name:</label>
+          <input type="text" placeholder="Scientific Name" value={formData.SciencetificName} onChange={(e) => handleInputChange(e, "SciencetificName")} />
+
+      </div>
+
+      <div className="input-group">
+      <label htmlFor="Season">Season:</label>
+          <select onChange={(e) => handleInputChange(e, "Season")}>
+            <option value="">Select Season</option>
+            <option value="Spring">Spring</option>
+            <option value="Summer">Summer</option>
+            <option value="Autumn">Autumn</option>
+            <option value="Winter">Winter</option>
+          </select>
+      </div>
+
+      <div className="input-group">
+      <label htmlFor="FieldId">Field Id:</label>
+          <select value={formData.FieldId} onChange={(e) => handleInputChange(e, "FieldId")}>
+              <option value="">Select Field ID</option>
+              <option value="F001">F001</option>
+              <option value="F002">F002</option>
+              <option value="F003">F003</option>
+          </select>
+      </div>
+
+      <div className="input-group">
+      <label htmlFor="LogId">Log Id:</label>
+          <select value={formData.LogId} onChange={(e) => handleInputChange(e, "LogId")}>
+            <option value="">Select Log ID</option>
+            <option value="L001">L001</option>
+            <option value="L002">L002</option>
+            <option value="L003">L003</option>
+          </select>
+      </div>
+
+          <button className="save-btn" onClick={handleAddCrop}>Save Crop</button>
         </div>
-
-
-            <div className="input-group">
-            <input type="text" placeholder="Common Name" onChange={(e) => handleNewCropChange(e, "commonName")} />
-            </div>
-
-            <div className="input-group">
-              <input
-                type="file"
-                accept="image/*"
-                onChange={(e) => {
-                  const file = e.target.files?.[0];
-                  if (file) {
-                    const reader = new FileReader();
-                    reader.onload = () => {
-                      setNewCrop((prev:any) => ({ ...prev, image: reader.result as string }));
-                    };
-                    reader.readAsDataURL(file);
-                  }
-                }}
-              />
-            </div>
-
-
-            <div className="input-group">
-            <input type="text" placeholder="Scientific Name" onChange={(e) => handleNewCropChange(e, "scientificName")} />
-            </div>
-
-            <div className="input-group">
-            <select onChange={(e) => handleNewCropChange(e, "season")}>
-              <option value="">Select Season</option>
-              <option value="Spring">Spring</option>
-              <option value="Summer">Summer</option>
-              <option value="Autumn">Autumn</option>
-              <option value="Winter">Winter</option>
-            </select>
-          </div>
-
-
-            <div className="input-group">
-              <select onChange={(e) => handleNewCropChange(e, "fieldId")}>
-                <option value="">Select Field ID</option>
-                <option value="F001">F001</option>
-                <option value="F002">F002</option>
-                <option value="F003">F003</option>
-                <option value="F004">F004</option>
-              </select>
-            </div>
-
-
-            <div className="input-group">
-              <select onChange={(e) => handleNewCropChange(e, "logId")}>
-                <option value="">Select Log ID</option>
-                <option value="L001">L001</option>
-                <option value="L002">L002</option>
-                <option value="L003">L003</option>
-                <option value="L004">L004</option>
-              </select>
-            </div>
-
-
-            <div className="form-actions">
-            <button className="save-btn" onClick={handleAddCrop}>Save Crop</button>
-            </div>
-          </div>
         )}
+      <div className="table-container mt-4">
+        <table className="table table-striped table-hover align-middle">
+          <thead>
+            <tr>
+              <th>Crop ID</th>
+              <th>Category</th>
+              <th>Common Name</th>
+              <th>Image</th>
+              <th>Scientific Name</th>
+              <th>Season</th>
+              <th>Field ID</th>
+              <th>Log ID</th>
+              <th>Actions</th>
+            </tr>
+          </thead>
+          <tbody>
+            {crops.map((crop) => (
+              <tr key={crop.id}>
+                <td>{crop.id}</td>
 
-        <div className="table-container mt-4">
-          <table className="table table-striped table-hover align-middle">
-            <thead>
-              <tr>
-                <th>Crop ID</th>
-                <th>Crop Category</th>
-                <th>Common Name</th>
-                <th>Crop Image</th>
-                <th>Scientific Name</th>
-                <th>Season</th>
-                <th>Field ID</th>
-                <th>Log ID</th>
-                <th>Actions</th>
-              </tr>
-            </thead>
-            <tbody>
-              {crops.map((crop) => (
-                <tr key={crop.cropId}>
-                  <td>{crop.cropId}</td>
-                  <td>{editingId === crop.cropId ? (<input type="text"  className="form-control" value={editedCrop.cropCategory} onChange={(e) => handleInputChange(e, "cropCategory")} />) : (crop.cropCategory)}</td>
-                  <td>{editingId === crop.cropId ? (<input type="text"  className="form-control" value={editedCrop.commonName} onChange={(e) => handleInputChange(e, "commonName")} />) : (crop.commonName)}</td>
-                  <td>
-  {editingId === crop.cropId ? (
-    <>
-      <input type="file"         className="form-control"
- accept="image/*" onChange={(e) => handleInputChange(e, "image")} />
-  
-    </>
-  ) : (
-    crop.image ? (
-      <img
-        src={crop.image}
-        alt="Crop"
-        className="form-control"
-        style={{
-          width: "80px",
-          height: "80px",
-          borderRadius: "160px",
-        }}
-      />
-    ) : (
-      "No Image"
-    )
-  )}
-</td>
+                {/* Editable Category */}
+      <td>
+        {formData.id === crop.id ? (
+          <select
+            value={formData.Category}
+            onChange={(e) => handleInputChange(e, "Category")}
+          >
+            <option value="">Select Category</option>
+            <option value="Veg">Vegetable</option>
+            <option value="Fruit">Fruit</option>
+            <option value="Grain">Grain</option>
+          </select>
+        ) : (
+          crop.Category
+        )}
+      </td>
 
+      {/* Editable Common Name */}
+      <td>
+        {formData.id === crop.id ? (
+          <input
+            type="text"
+            value={formData.CommonName}
+            onChange={(e) => handleInputChange(e, "CommonName")}
+          />
+        ) : (
+          crop.CommonName
+        )}
+      </td>
 
-                  <td>{editingId === crop.cropId ? (<input type="text" className="form-control" value={editedCrop.scientificName} onChange={(e) => handleInputChange(e, "scientificName")} />) : (crop.scientificName)}</td>
-                  <td>{editingId === crop.cropId ? (<input type="text" className="form-control" value={editedCrop.season} onChange={(e) => handleInputChange(e, "season")} />) : (crop.season)}</td>
-                  <td>{editingId === crop.cropId ? (<input type="text" className="form-control" value={editedCrop.fieldId} onChange={(e) => handleInputChange(e, "fieldId")} />) : (crop.fieldId)}</td>
-                  <td>{editingId === crop.cropId ? (<input type="text" className="form-control" value={editedCrop.logId} onChange={(e) => handleInputChange(e, "logId")} />) : (crop.logId)}</td>
-                  <td>
-                    {editingId === crop.cropId ? (
-                      <button className="btn btn-outline-success btn-sm" onClick={handleSaveClick}>
-                        <i className="fas fa-save"></i> 
-                      </button>
-                    ) : (
-                      <button className="btn btn-outline-primary btn-sm me-2" onClick={() => handleEditClick(crop)}>
-                        <i className="fas fa-edit"></i> 
-                      </button>
-                    )}
-                    <button className="btn btn-outline-danger btn-sm" onClick={() => handleDeleteClick(crop.cropId)}>
-                      <i className="fas fa-trash"></i> 
-                    </button>
-                  </td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
+      {/* Editable Image */}
+      <td>
+        {formData.id === crop.id ? (
+          <input
+            type="file"
+            accept="image/*"
+            onChange={(e) => handleInputChange(e, "Image")}
+          />
+        ) : crop.Image ? (
+          <img src={crop.Image} alt="Crop" style={{ width: "80px", height: "80px" }} />
+        ) : (
+          "No Image"
+        )}
+      </td>
+
+      {/* Editable Scientific Name */}
+      <td>
+        {formData.id === crop.id ? (
+          <input
+            type="text"
+            value={formData.SciencetificName}
+            onChange={(e) => handleInputChange(e, "SciencetificName")}
+          />
+        ) : (
+          crop.SciencetificName
+        )}
+      </td>
+
+      {/* Editable Season */}
+      <td>
+        {formData.id === crop.id ? (
+          <select
+            value={formData.Season}
+            onChange={(e) => handleInputChange(e, "Season")}
+          >
+            <option value="">Select Season</option>
+            <option value="Spring">Spring</option>
+            <option value="Summer">Summer</option>
+            <option value="Autumn">Autumn</option>
+            <option value="Winter">Winter</option>
+          </select>
+        ) : (
+          crop.Season
+        )}
+      </td>
+
+      {/* Editable Field ID */}
+      <td>
+        {formData.id === crop.id ? (
+         <select value={formData.FieldId} onChange={(e) => handleInputChange(e, "FieldId")}>
+         <option value="">Select Field ID</option>
+         <option value="F001">F001</option>
+         <option value="F002">F002</option>
+         <option value="F003">F003</option>
+       </select>
+       
+        ) : (
+          crop.FieldId
+        )}
+      </td>
+
+      {/* Editable Log ID */}
+      <td>
+        {formData.id === crop.id ? (
+          <select value={formData.LogId} onChange={(e) => handleInputChange(e, "LogId")}>
+          <option value="">Select Log ID</option>
+          <option value="L001">L001</option>
+          <option value="L002">L002</option>
+          <option value="L003">L003</option>
+        </select>
+        ) : (
+          crop.LogId
+        )}
+      </td>
+
+      {/* Actions - Edit, Save, Cancel, Delete */}
+      <td>
+        {formData.id === crop.id ? (
+          <>
+            <button className="save-btn btn-outline-success" onClick={handleSaveEdit}>💾</button>
+            <button className="cancel-btn" onClick={handleCancelEdit}>❌</button>
+          </>
+        ) : (
+          <>
+            <button className="edit-btn btn-outline-primary" onClick={() => handleEditCrop(crop)}>✏️</button>
+            <button className="delete-btn btn-outline-danger" onClick={() => handleDeleteCrop(crop.id)}>🗑️</button>
+          </>
+        )}
+      </td>
+    </tr>
+  ))}
+</tbody>
+        </table>
         </div>
-        <div>
-      <img className="cropImage" src={fieldImage} alt="Crop" />
-    </div>
+        <img className="cropImage" src={fieldImage} alt="Crop" />
       </BodyContent>
     </div>
   );

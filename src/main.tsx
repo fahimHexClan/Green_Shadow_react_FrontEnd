@@ -10,10 +10,11 @@ import App from "./App.tsx";
 import Crop from "./Components/Pagess/Crop.tsx";
 import Fields from "./Components/Pagess/Fields.tsx";
 import Staff from "./Components/Pagess/Staff.tsx";
-import Vehicle from "./Components/Pagess/Vehicles.tsx";
 import MonitoringLog from "./Components/Pagess/MonitoringLog.tsx";
 import Vehicles from "./Components/Pagess/Vehicles.tsx";
-
+import { Provider } from 'react-redux';
+import store from './store.ts';
+import Equipment from "./Components/Pagess/Equipment.tsx";
 
 const router = createBrowserRouter([
   {
@@ -39,11 +40,17 @@ const router = createBrowserRouter([
   {
     path: "/vehicle",
     element: <Vehicles />,
-  }
+  },
+{
+  path: "/equipment",
+  element: <Equipment />,
+}
 ]);
 
 createRoot(document.getElementById("root")!).render(
   <StrictMode>
-    <RouterProvider router={router} />
+    <Provider store={store}>
+      <RouterProvider router={router} />
+    </Provider>
   </StrictMode>
 );

@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import BodyContent from "../BodyContent/BodyContent";
 import HeaderContent from "../HeaderContent/HeaderContent";
-import "./pagesCss/Crop.css";
+import "./pagesCss/Pages.css";
 import fieldImage from "../../assets/vehicle.jpg";
 import "@fortawesome/fontawesome-free/css/all.min.css";
 
