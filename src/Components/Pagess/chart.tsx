@@ -6,25 +6,22 @@ interface ChartProps {
   title: string;
 }
 
-// Register necessary Chart.js components
 ChartJS.register(CategoryScale, LinearScale, BarElement, Title, Tooltip, Legend);
 
 const Chart: React.FC<ChartProps> = ({ title }) => {
-  // Sample data
   const data = {
     labels: ["Jan", "Feb", "Mar", "Apr", "May", "Jun"],
     datasets: [
       {
         label: "Growth",
         data: [30, 45, 60, 40, 80, 90],
-        backgroundColor: "rgba(33, 136, 56, 0.7)", // Green color with opacity
+        backgroundColor: "rgba(33, 136, 56, 0.7)", 
         borderColor: "#218838",
         borderWidth: 1,
       },
     ],
   };
 
-  // Chart options
   const options = {
     responsive: true,
     maintainAspectRatio: false,
