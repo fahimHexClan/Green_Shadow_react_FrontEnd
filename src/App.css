@@ -25,21 +25,21 @@
 
    
   }
-  /* Main container for layout */
+  
 .app-container {
   display: flex;
-  height: 100vh; /* Full screen height */
+  height: 100vh; 
   background: var(--glass-background);
   backdrop-filter: blur(12px);
 }
 
 .links-container {
-  height: 100vh; /* Full sidebar height */
+  height: 100vh; 
   flex-shrink: 0;
 }
 
 .main-content {
-  flex-grow: 1; /* Take remaining space */
+  flex-grow: 1; 
   padding: 20px;
   overflow-y: auto;
   background-color: #f3fbfb;
@@ -52,7 +52,7 @@
   font-size: 45px;
   font-weight: 700;
   color: var(--black-color);
-  text-align: center;  /* Centers the title */
+  text-align: center; 
   margin-top: 8px;
   margin-bottom: 18px;
   display: flex;
@@ -64,7 +64,7 @@
   font-size: 20px;
   font-weight: bold;
   color: #505450;
-  text-align: center; /* Centers the subtitle */
+  text-align: center; 
   margin-bottom: 50px;
   
 }
@@ -107,16 +107,16 @@
   position: absolute;
   top: 50%;
   right: 10px;
-  transform: translateY(-50%); /* Centers image vertically */
+  transform: translateY(-50%);
 }
 .widget h3 {
-  font-size: clamp(18px, 2vw, 22px); /* Adjusts based on screen size */
+  font-size: clamp(18px, 2vw, 22px);
   margin-bottom: 8px;
   word-wrap: break-word;
 }
 
 .widget p {
-  font-size: clamp(14px, 2.8vw, 17px); /* More responsive */
+  font-size: clamp(14px, 2.8vw, 17px);
   text-align: center;
   line-height: 1.4;
   max-width: 90%;
@@ -126,7 +126,7 @@
   white-space: normal;
 }
 
-/* Charts */
+
 .charts-container {
   margin-top: 30px;
   display: flex;
@@ -142,8 +142,8 @@
   border-radius: var(--border-radius);
   box-shadow: 0px 5px 15px var(--shadow-light);
   text-align: center;
-  height: 400px; /* Increase height */
-  min-width: 300px; /* Ensure it has a minimum width */
+  height: 400px;
+  min-width: 300px; 
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -151,23 +151,19 @@
 }
 
 @media (max-width: 768px) {
-  /* Adjust main layout for smaller screens */
   .app-container {
     flex-direction: column;
     height: auto;
   }
 
-  /* Hide sidebar (if any) */
   .links-container {
     display: none;
   }
 
-  /* Adjust widgets for single-column layout */
   .widgets-container {
-    grid-template-columns: 1fr; /* One widget per row */
+    grid-template-columns: 1fr;
   }
 
-  /* Make charts stack on top of each other */
   .charts-container {
     flex-direction: column;
   }
@@ -178,36 +174,33 @@
     position: relative;
   }
 
-  /* Ensure widget images are responsive */
   .widget img {
     width: 50px;
     height: 50px;
-    right: auto;  /* Reset right positioning */
-    left: 50%;  /* Center horizontally */
-    top: 10px;  /* Position at the top */
-    transform: translateX(-50%); /* Center align */
+    right: auto;  
+    left: 50%; 
+    top: 10px;  
+    transform: translateX(-50%); 
   }
 
-  /* Adjust text inside widgets */
   .widget h3 {
     font-size: clamp(16px, 4vw, 20px);
-    margin-top: 60px; /* Push text down to avoid overlap with image */
+    margin-top: 60px; 
     text-align: center;
   }
 
   .widget p {
-    font-size: clamp(13px, 3vw, 16px); /* Slightly smaller on mobile */
+    font-size: clamp(13px, 3vw, 16px); 
     line-height: 1.4;
     max-width: 100%;
     padding: 0 10px;
   }
 
-  /* Reduce font sizes */
+
   .head {
     font-size: 26px;
   }
 
-  /* Reduce font sizes for better readability */
   .head {
     font-size: 28px;
   }
