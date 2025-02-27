@@ -1,0 +1,141 @@
+.login-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  background: url('../../assets/crop1.jpg') no-repeat center center/cover;
+  background-size: cover;
+  background-position: center;
+  background-attachment: fixed;
+ 
+}
+
+.Login-heading {
+  position: absolute;
+    top: 50px;
+    font-size: 48px;
+    font-weight: 800;
+    color: #ffffff;
+    text-shadow: 3px 3px 12px rgba(0, 0, 0, 0.4);
+    letter-spacing: 2px;
+    text-align: center;
+    font-family: "Poppins", sans-serif;
+    text-transform: uppercase;
+    padding: 0 20px;
+    width: 100%;
+}
+
+
+.login-box {
+  background: rgba(252, 252, 252, 0.2);
+  backdrop-filter: blur(15px);
+  padding: 3rem;
+  border-radius: 15px;
+  box-shadow: 0 5px 15px var(--shadow-light);
+  text-align: center;
+  width: 450px;
+  transition: transform 0.3s ease-in-out;
+}
+
+.login-box:hover {
+  transform: scale(1.02);
+}
+
+.login-box h2 {
+  font-size: 28px;
+  color: var(--black-color);
+  font-weight: 700;
+  margin-bottom: 20px;
+}
+label {
+  display: block;
+  font-size: 16px;
+  font-weight: 600;
+  color: #ffffff;
+  margin-bottom: 5px; /* Ensures spacing between label and input */
+  text-align: left;
+}
+
+.login-box input {
+  width: 100%;
+  padding: 12px;
+  margin-bottom: 15px;
+  border: none;
+  border-radius: 8px;
+  background: rgba(255, 255, 255, 0.3);
+  box-shadow: inset 2px 2px 5px var(--shadow-light);
+  font-size: 16px;
+  color: var(--black-color);
+  outline: none;
+  transition: all 0.3s ease-in-out;
+}
+
+.login-box input:focus {
+  background: rgba(255, 255, 255, 0.5);
+  box-shadow: 0 0 10px var(--shadow-light);
+}
+
+
+.password-container {
+  position: relative;
+}
+
+.password-container .toggle-password {
+  position: absolute;
+  right: 12px;
+  top: 50%;
+  transform: translateY(-50%);
+  cursor: pointer;
+  color: var(--black-color);
+}
+
+.login-box button {
+  width: 100%;
+  padding: 12px;
+  background: #218838;
+  border: none;
+  border-radius: 8px;
+  font-size: 18px;
+  color: white;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease-in-out;
+}
+
+.login-box button:hover {
+  background: #18672e;
+}
+
+.login-box p {
+  margin-top: 10px;
+  font-size: 14px;
+  color: var(--black-color);
+}
+
+.signup-button {
+  background: none;
+  border: none;
+  color: #218838;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.signup-button:hover {
+  text-decoration: underline;
+}
+
+@media (max-width: 900px) {
+  .login-box {
+      width: 70%;
+      padding: 2rem;
+  }
+
+  .login-box h2 {
+      font-size: 24px;
+  }
+
+  .login-box input,
+  .login-box button {
+      font-size: 16px;
+  }
+}

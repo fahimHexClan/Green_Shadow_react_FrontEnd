@@ -2,13 +2,22 @@ import React, { useState } from 'react';
 import MenuItem from '../MenuItem/MenuItem';
 import 'bootstrap-icons/font/bootstrap-icons.css';
 import './Links.css';
-import { FaBars, FaHome,FaSeedling ,FaMap , FaListAlt ,FaCar , FaUserFriends , FaTools } from 'react-icons/fa';
+import { FaBars, FaHome,FaSeedling ,FaMap , FaListAlt ,FaCar , FaUserFriends , FaTools,FaSignOutAlt } from 'react-icons/fa';
+import { useNavigate } from 'react-router-dom'; 
+import { useDispatch } from 'react-redux';
 
 const Links: React.FC = () => {
   const [isSidebarVisible, setSidebarVisible] = useState<boolean>(false);
+  const navigate = useNavigate(); 
+  const dispatch = useDispatch();
 
   const toggleSidebar = () => {
     setSidebarVisible(!isSidebarVisible);
+  };
+  const handleLogout = () => {
+    dispatch({ type: 'LOGOUT' }); 
+    localStorage.removeItem('authToken'); 
+    navigate('/login'); 
   };
 
   return (
@@ -80,6 +89,12 @@ const Links: React.FC = () => {
         >
           <FaSeedling  className="nav_icon" />
         </MenuItem>
+
+        {/* ✅ Logout Button (No link, just calls `handleLogout`) */}
+        <div className="menu-item logout-item" onClick={handleLogout} style={{ cursor: 'pointer' }}>
+          <FaSignOutAlt className="nav_icon" />
+          {isSidebarVisible ? 'Logout' : ''}
+        </div>
       </nav>
     </div>
   );

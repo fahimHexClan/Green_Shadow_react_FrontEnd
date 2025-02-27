@@ -1,0 +1,143 @@
+.signup-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    background: url('../../assets/crop1.jpg') no-repeat center center/cover;
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed;
+}
+
+.signup-heading {
+    position: absolute;
+    top: 50px;
+    font-size: 48px;
+    font-weight: 800;
+    color: #ffffff;
+    text-shadow: 3px 3px 12px rgba(0, 0, 0, 0.4);
+    letter-spacing: 2px;
+    text-align: center;
+    font-family: "Poppins", sans-serif;
+    text-transform: uppercase;
+    padding: 0 20px;
+    width: 100%;
+}
+
+
+  
+  /* Glassmorphic Signup Box */
+  .signup-box {
+    background: rgba(255, 255, 255, 0.15);
+    backdrop-filter: blur(20px);
+    padding: 2rem;
+    border-radius: 15px;
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+    text-align: center;
+    width: 400px;
+    transition: transform 0.3s ease-in-out;
+  }
+  
+  .signup-box:hover {
+    transform: scale(1.03);
+  }
+  
+  /* Signup Heading */
+  .signup-box h2 {
+    font-size: 32px;
+    color: #333;
+    font-weight: 700;
+    margin-bottom: 20px;
+  }
+  label {
+    display: block;
+    font-size: 16px;
+    font-weight: 600;
+    color: #ffffff;
+    margin-bottom: 5px; /* Ensures spacing between label and input */
+    text-align: left;
+}
+  /* Input Fields */
+  .signup-box input {
+    width: 100%;
+    padding: 12px;
+    margin-bottom: 15px;
+    border: none;
+    border-radius: 8px;
+    background: rgba(255, 254, 254, 0.3);
+    box-shadow: inset 2px 2px 5px rgba(0, 0, 0, 0.1);
+    font-size: 16px;
+    color: #ffffff;
+    outline: none;
+    transition: all 0.3s ease-in-out;
+  }
+  
+  .signup-box input:focus {
+    background: rgba(255, 255, 255, 0.5);
+    box-shadow: 0 0 12px rgba(0, 0, 0, 0.15);
+  }
+  
+  /* Signup Button */
+  .signup-box button {
+    width: 100%;
+    padding: 14px;
+    background: #218838;
+    border: none;
+    border-radius: 8px;
+    font-size: 18px;
+    color: white;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease-in-out;
+  }
+  
+  .signup-box button:hover {
+    background: #18672e;
+  }
+  
+  /* Login Link */
+  .signup-box p {
+    margin-top: 15px;
+    font-size: 14px;
+    color: #333;
+  }
+  
+  .login-button {
+    background: none;
+    border: none;
+    color: #218838;
+    font-weight: bold;
+    cursor: pointer;
+  }
+  
+  .login-button:hover {
+    text-decoration: underline;
+  }
+  
+  /* ====== RESPONSIVE DESIGN ====== */
+  @media (max-width: 900px) {
+    .signup-heading {
+        width: 90%;
+        padding: 1rem;
+        position: relative;
+        top: 0;  /* Adjusted to prevent pushing inside */
+        font-size: 40px; /* Reduced font size */
+        text-align: center;
+
+    }
+
+    .signup-box {
+      width: 90%;
+      padding: 2.5rem;
+    }
+  
+    .signup-box h2 {
+      font-size: 28px;
+    }
+  
+    .signup-box input,
+    .signup-box button {
+      font-size: 16px;
+    }
+  }
+  

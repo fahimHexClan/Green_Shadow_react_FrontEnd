@@ -15,11 +15,15 @@ import Vehicles from "./Components/Pagess/Vehicles.tsx";
 import { Provider } from 'react-redux';
 import store from './store.ts';
 import Equipment from "./Components/Pagess/Equipment.tsx";
+import Login from "./Components/Pagess/Login.tsx";
+import Signup from "./Components/Pagess/Signup.tsx";
+import Dashboard from "./Components/Pagess/DashBoard.tsx"; 
+
 
 const router = createBrowserRouter([
   {
     path: "/",
-    element: <App />,
+    element: <Dashboard />, // ✅ Set proper Dashboard route
   },
   {
     path: "/monitorLog",
@@ -44,6 +48,18 @@ const router = createBrowserRouter([
 {
   path: "/equipment",
   element: <Equipment />,
+},
+{
+  path: "/login",
+  element: <Login />,
+},
+{
+  path: "/signup",
+  element: <Signup />,
+},
+{
+  path: "/*",
+  element: <App />,
 }
 ]);
 
