@@ -34,7 +34,6 @@ display: flex; /* Flexbox layout */
   background: var(--glass-background);
 }
 
-/* Sidebar Navigation */
 .links-container {
   height: 100vh; /* Full sidebar height */
   flex-shrink: 0;
@@ -70,7 +69,7 @@ display: flex; /* Flexbox layout */
 .nav-title {
   font-size: 18px;
   color:  rgb(5, 171, 63);
-  margin-left: 9%; /* Pushes the title to the right */
+  margin-left: 9%;
 
   opacity: 0;
   visibility: hidden;
@@ -82,7 +81,6 @@ display: flex; /* Flexbox layout */
   visibility: visible;
 }
 
-/* Menu Items */
 .menu-item {
   display: flex;
   align-items: center;
@@ -106,7 +104,6 @@ display: flex; /* Flexbox layout */
   outline: none;
 }
 
-/* Nav Icon */
 .nav_icon {
   font-size: 24px;
   color: rgb(18, 17, 17);
@@ -114,14 +111,13 @@ display: flex; /* Flexbox layout */
   transition: font-size 0.3s ease, color 0.3s ease;
 }
 
-/* Handle Collapsed State */
 .links-container.collapsed .nav_icon {
-  font-size: 20px; /* Smaller icon size for collapsed state */
-  margin-right: 0; /* Adjust margin if needed */
+  font-size: 20px; 
+  margin-right: 0; 
 }
 
 .links-container.expanded .nav_icon {
-  font-size: 24px; /* Normal icon size for expanded state */
+  font-size: 24px; 
   color: rgb(58, 181, 79);
 
 }
