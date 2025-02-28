@@ -1,8 +1,5 @@
 import React, { useState } from "react";
-import { useDispatch } from "react-redux";
-import { login } from "../../Reducer/slice/authSlice";
 import { useNavigate } from "react-router-dom";
-import { AuthData } from "../../Model/AuthData";
 import "../../Components/Pagess/pagesCss/Login.css";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
@@ -14,23 +11,10 @@ const Login: React.FC = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [showPassword, setShowPassword] = useState(false);
-  const dispatch = useDispatch();
   const navigate = useNavigate();
 
   const handleLogin = (e: React.FormEvent) => {
     e.preventDefault();
-
-    const existingUsers = JSON.parse(localStorage.getItem("users") || "[]");
-    const foundUser = existingUsers.find(
-      (user: AuthData) => user.email === email && user.password === password
-    );
-
-    if (!foundUser) {
-      toast.error("Invalid email or password!", { position: "top-center" });
-      return;
-    }
-
-    dispatch(login(foundUser));
     navigate("/dashboard");
   };
   

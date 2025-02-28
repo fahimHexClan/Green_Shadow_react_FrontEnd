@@ -35,7 +35,7 @@ const Links: React.FC = () => {
         {/* Menu Items */}
         <MenuItem
         linktext={isSidebarVisible ? 'DashBoard' : ''}
-        url="/"  // Correct URL
+        url="/dashboard"  // Correct URL
         className="menu-item"
       >
   <FaHome className="nav_icon" />

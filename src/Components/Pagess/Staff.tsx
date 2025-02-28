@@ -20,10 +20,6 @@ const Staff: React.FC = () => {
     Staff_FirstName: "",
     Staff_LastName:  "",
     Address_1: "",
-    Address_2: "",
-    Address_3: "",
-    Address_4: "",
-    Address_5: "",
     Contact_Number: "",
     Designation: "",
     Date_Of_Birth: "",
@@ -90,10 +86,6 @@ const Staff: React.FC = () => {
       Staff_FirstName: "",
       Staff_LastName:  "",
       Address_1: "",
-      Address_2: "",
-      Address_3: "",
-      Address_4: "",
-      Address_5: "",
       Contact_Number: "",
       Designation: "",
       Date_Of_Birth: "",
@@ -116,10 +108,6 @@ const handleSaveEdit = () => {
     Staff_FirstName: "",
     Staff_LastName:  "",
     Address_1: "",
-    Address_2: "",
-    Address_3: "",
-    Address_4: "",
-    Address_5: "",
     Contact_Number: "",
     Designation: "",
     Date_Of_Birth: "",
@@ -136,10 +124,6 @@ const handleCancelEdit = () => {
     Staff_FirstName: "",
     Staff_LastName:  "",
     Address_1: "",
-    Address_2: "",
-    Address_3: "",
-    Address_4: "",
-    Address_5: "",
     Contact_Number: "",
     Designation: "",
     Date_Of_Birth: "",
@@ -188,29 +172,7 @@ const handleDeleteStaff  = (id: string) => {
           <input type="text" placeholder=" Address_1" value={formData.Address_1} onChange={(e) => handleInputChange(e, "Address_1")} />
       </div>
 
-      <div className="input-group">
-      <label htmlFor="Address_2">Address_2:</label>
-          <input type="text" placeholder=" Address_2" value={formData.Address_2} onChange={(e) => handleInputChange(e, "Address_2")} />
-      </div>
-
-      <div className="input-group">
-      <label htmlFor="Address_3">Address_3:</label>
-          <input type="text" placeholder=" Address_3" value={formData.Address_3} onChange={(e) => handleInputChange(e, "Address_3")} />
-      </div>
-
-      <div className="input-group">
-      <label htmlFor="Address_4">Address_4:</label>
-          <input type="text" placeholder=" Address_4" value={formData.Address_4} onChange={(e) => handleInputChange(e, "Address_4")} />
-      </div>
-      <div className="input-group">
-      <label htmlFor="Address_5">Address_5:</label>
-          <input type="text" placeholder=" Address_5" value={formData.Address_5} onChange={(e) => handleInputChange(e, "Address_5")} />
-      </div>
-      
-      <div className="input-group">
-      <label htmlFor="Address_5">Address_5:</label>
-          <input type="text" placeholder=" Address_5" value={formData.Address_5} onChange={(e) => handleInputChange(e, "Address_5")} />
-      </div>
+     
 
       <div className="input-group">
       <label htmlFor="Contact_Number">Contact_Number:</label>
@@ -303,10 +265,6 @@ const handleDeleteStaff  = (id: string) => {
                     <th>Staff_FirstName</th>
                     <th>Staff_LastName</th>
                     <th> Address_1</th>
-                    <th> Address_2</th>
-                    <th> Address_3</th>
-                    <th> Address_4</th>
-                    <th> Address_5</th>
                     <th>Contact_Number</th>
                     <th>Designation</th>
                     <th>Date_Of_Birth</th>
@@ -361,58 +319,6 @@ const handleDeleteStaff  = (id: string) => {
           staff.Address_1
         )}
      </td>
-     <td>
-        {formData.id === staff.id ? (
-         
-         <input 
-         type="text" 
-         value={formData.Address_2} 
-         onChange={(e) => handleInputChange(e, "Address_2")}
-         />  
-          ) : (
-          staff.Address_2
-        )}
-     </td>
-
-     <td>
-        {formData.id === staff.id ? (
-         
-         <input 
-         type="text" 
-         value={formData.Address_3} 
-         onChange={(e) => handleInputChange(e, "Address_3")}
-         />  
-          ) : (
-          staff.Address_3
-        )}
-     </td>
-
-     <td>
-        {formData.id === staff.id ? (
-         
-         <input 
-         type="text" 
-         value={formData.Address_4} 
-         onChange={(e) => handleInputChange(e, "Address_4")}
-         />  
-          ) : (
-          staff.Address_4
-        )}
-     </td>
-
-     <td>
-        {formData.id === staff.id ? (
-         
-         <input 
-         type="text" 
-         value={formData.Address_5} 
-         onChange={(e) => handleInputChange(e, "Address_5")}
-         />  
-          ) : (
-          staff.Address_5
-        )}
-     </td>
-
      <td>
         {formData.id === staff.id ? (
          

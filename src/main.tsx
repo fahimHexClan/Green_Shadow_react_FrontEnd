@@ -23,7 +23,11 @@ import Dashboard from "./Components/Pagess/DashBoard.tsx";
 const router = createBrowserRouter([
   {
     path: "/",
-    element: <Dashboard />, // ✅ Set proper Dashboard route
+    element: <Login />, // ✅ Set proper Dashboard route
+  },
+  {
+     path: "/dashboard",
+      element: <Dashboard /> 
   },
   {
     path: "/monitorLog",
@@ -59,7 +63,7 @@ const router = createBrowserRouter([
 },
 {
   path: "/*",
-  element: <App />,
+  element: <Login/>,
 }
 ]);
 

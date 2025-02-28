@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { AuthData } from "../../Model/AuthData";
 import "./pagesCss/Signup.css"; 
 import background from "../../assets/crop1.jpg";
 
@@ -13,22 +12,8 @@ const Signup: React.FC = () => {
 
   const handleSignup = (e: React.FormEvent) => {
     e.preventDefault();
-
-    const existingUsers = JSON.parse(localStorage.getItem("users") || "[]");
-
-    const userExists = existingUsers.some((user: AuthData) => user.email === email);
-    if (userExists) {
-      alert("User already exists! Please login.");
-      return;
-    }
-
-    const newUser = { id: Date.now().toString(), username, email, password };
-    localStorage.setItem("users", JSON.stringify([...existingUsers, newUser]));
-
-    alert("Signup successful! Now login.");
     navigate("/login");
   };
-  
 
   return (
 <div className="signup-container" style={{ 

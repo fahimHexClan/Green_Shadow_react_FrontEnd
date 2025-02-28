@@ -5,12 +5,15 @@ import fieldImage from "../../assets/crop1.jpg";
 import HeaderContent from "../HeaderContent/HeaderContent";
 import BodyContent from "../BodyContent/BodyContent";
 import "./pagesCss/DashBoard.css";
+import Login from "./Login";
 
 
 const Dashboard: React.FC = () => {
     return (
+      <>
 
 <div className="app-container">
+
 <HeaderContent />
 <BodyContent>
       
@@ -34,6 +37,7 @@ const Dashboard: React.FC = () => {
       </div>
       </BodyContent>
       </div>
+      </>
     );
   };
   
